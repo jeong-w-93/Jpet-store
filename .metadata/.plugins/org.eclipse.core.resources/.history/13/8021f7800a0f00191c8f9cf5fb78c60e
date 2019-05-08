@@ -1,0 +1,25 @@
+package com.example.project01.controller;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.example.project01.model.dto.MemberDTO;
+import com.example.project01.service.MemberService;
+
+@Controller
+public class MemberController {
+
+	//MemberService 인스턴스 주입
+	@Inject
+	MemberService memberService;
+	
+	@RequestMapping("member/list.do")//url mapping
+	public String memberList(Model model) {
+		List<MemberDTO> list = memberService.memberList();
+	}
+}

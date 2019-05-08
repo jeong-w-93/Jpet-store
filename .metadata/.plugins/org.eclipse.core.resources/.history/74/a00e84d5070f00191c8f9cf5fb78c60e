@@ -1,0 +1,53 @@
+package com.example.project01.model.dao;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.inject.Inject;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.stereotype.Repository;
+
+import com.example.project01.model.dto.MemberDTO;
+
+//현재 클래스를 스프링에서 관리하는 dao bean으로 설정
+@Repository
+public class MemberDAOImpl implements MemberDAO {
+	//mybatis SqlSession 객체를 스프링에서 주입시킴
+	@Inject
+	SqlSession sqlSession;
+	
+	@Override
+	public List<MemberDTO> memberList() {
+		return sqlSession.selectList("member.memberList");
+	}
+
+	@Override
+	public void insertMember(MemberDTO dto) {
+		sqlSession.insert("member.insertMember",dto);
+	}
+
+	@Override
+	public MemberDTO viewMember(String userid) {
+		return sqlSession.selectOne("member.viewMember",userid);
+	}
+
+	@Override
+	public void deleteMember(String userid) {
+		sqlSession.delete("member.deleteMember",userid);
+	}
+
+	@Override
+	public void updateMember(MemberDTO dto) {
+		sqlSession.update("member.updateMember",dto);
+	}
+
+	@Override
+	public boolean checkPw(String userid, String passwd) {
+		boolean result=false;
+		Map<String,String> map = new HashMap<>();
+		return false;
+	}
+
+}
